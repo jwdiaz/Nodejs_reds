@@ -15,8 +15,8 @@ const CursoSchema = new Schema({
     required: true
   },
   valor: {
-    type: Date,
-    default: Date.now
+    type: Number,
+    required: true
   },
   intensidad: {
     type: String
