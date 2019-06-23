@@ -7,7 +7,7 @@ const Usuario = new Schema({
   documento: { type: String, required: true },
   nombre: { type: String, required: true },
   correo: { type: String, required: true },
-  telefono: { type: String, required: true },
+  telefono: { type: String },
   password: { type: String, required: true },
   tipo: { type: String, required: true }
 });
