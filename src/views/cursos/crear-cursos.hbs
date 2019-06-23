@@ -1,10 +1,14 @@
-<div class="row">
+<div class="container p-4">
+     <h2>Registro nuevo curso</h2>
+<hr />
+    <div class="row">
         <div class="col-md-12 mx-auto">
             <form action="/cursos/new" method="post">
                 <div class="form-group row">
                     <div class="col-sm-6">
                         <label for="idCurso">Id Curso * </label>
-                        <input type="text" class="form-control" id="idCurso" name="idCurso" placeholder="Id Curso" required>
+                        <input type="text" class="form-control" id="idCurso" name="idCurso" placeholder="Id Curso"
+                            required>
                     </div>
                     <div class="col-sm-6">
                         <label for="nombre">Nombre * </label>
@@ -14,7 +18,8 @@
                 <div class="form-group row">
                     <div class="col-sm-6">
                         <label for="descripcion">Descripción * </label>
-                        <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Descripción" required></textarea>
+                        <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Descripción"
+                            required></textarea>
                     </div>
                     <div class="col-sm-6">
                         <label for="valor">Valor ($) *</label>
@@ -31,7 +36,8 @@
                     </div>
                     <div class="col-sm-6">
                         <label for="intensidadHoraria">Intensidad Horaria (horas)</label>
-                        <input type="text" class="form-control" id="intensidadHoraria" name="intensidadHoraria" placeholder="Intensidad Horaria">
+                        <input type="text" class="form-control" id="intensidadHoraria" name="intensidadHoraria"
+                            placeholder="Intensidad Horaria">
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary px-4 float-right">Guardar</button>

@@ -5,7 +5,7 @@ const router = express.Router();
 const Curso = require('../models/Curso');
 
 router.get('/cursos', async(req, res) => {
-    const curso = await Curso.find();
+    const curso = await Curso.find().sort({nombre:1});
     res.render('cursos/listar-cursos',{curso});
   }); 
 
@@ -19,6 +19,7 @@ router.get('/new-curso', (req, res) => {
     //res.send(curso);
    res.render('cursos/ver-curso',{infoCurso});
   });
+  
 router.post("/cursos/new", async (req, res) => {
     const body = req.body;
   
