@@ -7,6 +7,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const app = express();
 require("./config/database");
+require("./config/passport");
 
 app.set("port", process.env.PORT || 3000);
 app.set("views", path.join(__dirname, "views"));

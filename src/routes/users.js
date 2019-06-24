@@ -9,13 +9,14 @@ router.get("/users/signup", (req, res) => {
 });
 
 router.post("/users/signup", async (req, res) => {
-
-  const exiUsuario = await Usuario.findOne({documento: req.body.documento,});
-  if(exiUsuario) {
-    req.flash('error_msg', 'Ya exite el usuario con documento :'+req.body.documento);
-    res.redirect('/users/signup');
+  const exiUsuario = await Usuario.findOne({ documento: req.body.documento });
+  if (exiUsuario) {
+    req.flash(
+      "error_msg",
+      "Ya exite el usuario con documento :" + req.body.documento
+    );
+    res.redirect("/users/signup");
   } else {
-
     // Saving a New User
     const newUser = new Usuario({
       documento: req.body.documento,
@@ -27,12 +28,10 @@ router.post("/users/signup", async (req, res) => {
     });
     newUser.password = await newUser.encryptPassword(req.body.password);
     await newUser.save();
-    req.flash('success_msg', 'Registro de Usuario exitoso.');
+    req.flash("success_msg", "Registro de Usuario exitoso.");
     res.redirect("/users/signin");
   }
 });
-
-
 
 router.get("/users/signin", (req, res) => {
   res.render("users/signin");
@@ -41,7 +40,7 @@ router.get("/users/signin", (req, res) => {
 router.post(
   "/users/signin",
   passport.authenticate("local", {
-    successRedirect: "/notes",
+    successRedirect: "/ver-cursos",
     failureRedirect: "/users/signin",
     failureFlash: true
   })
@@ -49,7 +48,7 @@ router.post(
 
 router.get("/users/logout", (req, res) => {
   req.logout();
-  req.flash("success_msg", "You are logged out now.");
+  req.flash("success_msg", "Estás desconectado ahora.");
   res.redirect("/users/signin");
 });
 
