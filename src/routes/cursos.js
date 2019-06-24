@@ -25,7 +25,7 @@ router.get("/ver-curso/:id", async (req, res) => {
   const infoCurso = await Curso.find({
     idCurso: id
   });
-  //res.send(curso);
+  
   res.render("cursos/ver-curso", {
     infoCurso
   });
@@ -33,7 +33,7 @@ router.get("/ver-curso/:id", async (req, res) => {
 
 router.get("/ver-cursos", async (req, res) => {
   const Cursos = await Curso.find();
-  //res.send(curso);
+ 
   res.render("cursos/todoscursos", {
     Cursos
   });
@@ -50,6 +50,12 @@ router.get("/eliminar-curso/:id", async (req, res) => {
   await Curso.findByIdAndRemove(req.params.id);
   req.flash('success_msg', 'Curso eliminado con exito.');
   res.redirect("/ver-cursos");
+});
+
+router.get("/actualizarCurso/:id", async (req, res) => {
+  const curso = await Curso.findById(req.params.id);
+ 
+  res.render("cursos/actualizar-curso",{curso});
 });
 
 router.post("/cursos/new", async (req, res) => {
@@ -76,6 +82,14 @@ router.post("/cursos/new", async (req, res) => {
 
     res.redirect("/ver-cursos");
   }
+});
+
+router.put("/cursos/actualizar/:id", async (req, res) => {
+  const {idCurso, nombre, descripcion, valor, modalidad, intensidadHoraria,estado} = req.body;
+  await Curso.findByIdAndUpdate(req.params.id, {idCurso, nombre, descripcion, valor, modalidad, intensidadHoraria,estado});
+  req.flash('success_msg', 'Actualizacion de curso exitosa');
+  res.redirect("/ver-cursos");
+  
 });
 
 module.exports = router;
