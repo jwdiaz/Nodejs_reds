@@ -42,13 +42,13 @@ router.get("/ver-cursos", async (req, res) => {
 router.get("/estado-cursos/:id/:estado", async (req, res) => {
   const id = req.params.id;
   const Cursos = await Curso.find();
-  //res.send(curso);
+  
   res.redirect("/ver-cursos");
 });
+
 router.get("/eliminar-curso/:id", async (req, res) => {
   await Curso.findByIdAndRemove(req.params.id);
-  //res.send(curso);
-
+  req.flash('success_msg', 'Curso eliminado con exito.');
   res.redirect("/ver-cursos");
 });
 
@@ -56,19 +56,26 @@ router.post("/cursos/new", async (req, res) => {
   const body = req.body;
 
   // Saving a New curso
-  const newCurso = new Curso({
-    idCurso: body["idCurso"],
-    nombre: body["nombre"],
-    descripcion: body["descripcion"],
-    valor: body["valor"],
-    intensidad: body["intensidadHoraria"],
-    modalidad: body["modalidad"],
-    estado: "disponible"
-  });
+  
+  const exiCurso = await Curso.findOne({ idCurso: body["idCurso"] });
+  if (exiCurso) {
+    req.flash("error_msg", "Ya exite un curso con el ID :" + body["idCurso"]);
+    res.redirect("/new-curso");
+  } else {
+    const newCurso = new Curso({
+      idCurso: body["idCurso"],
+      nombre: body["nombre"],
+      descripcion: body["descripcion"],
+      valor: body["valor"],
+      intensidad: body["intensidadHoraria"],
+      modalidad: body["modalidad"],
+      estado: "disponible"
+    });
+    await newCurso.save();
+    req.flash('success_msg', 'Registro de Curso exitoso.');
 
-  await newCurso.save();
-
-  res.redirect("/ver-cursos");
+    res.redirect("/ver-cursos");
+  }
 });
 
 module.exports = router;
